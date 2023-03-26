@@ -53,26 +53,7 @@ module.exports = {
     camelcase: [
       "error",
       {
-        allow: [
-          "auth_pass",
-          "blocked_time",
-          "create_date",
-          "code_otp_secret",
-          "is_active",
-          "is_otp_verify",
-          "user_id",
-          "session_id",
-          "session_login",
-          "session_anonymous",
-          "session_forgotcred",
-          "strategy_session_workflow",
-          "subscription_type",
-          "profile_test",
-          "type_user",
-          "user_agent",
-          "access_token",
-          "refresh_token",
-        ],
+        allow: ["access_token", "refresh_token", "user_id", "is_active"],
       },
     ],
 

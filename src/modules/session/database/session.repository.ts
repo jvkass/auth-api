@@ -1,12 +1,12 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { ISessionLogin } from "../domain/model/session-login.model";
+import { ISessionLogin } from "../domain/schema/session-login.schema";
 
 @Injectable()
 export class SessionRepository {
   constructor(
-    @InjectModel("Session")
+    @InjectModel("SessionLogin")
     private readonly SessionLoginModel: Model<ISessionLogin>,
   ) {}
 
@@ -21,10 +21,14 @@ export class SessionRepository {
       user_id: userId,
     });
 
-    sessionLogin!.is_active = false;
+    if (sessionLogin) {
+      sessionLogin!.is_active = false;
 
-    await sessionLogin?.save();
+      await sessionLogin?.save();
 
-    return sessionLogin;
+      return sessionLogin;
+    }
+
+    return null;
   }
 }

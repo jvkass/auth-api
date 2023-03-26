@@ -5,7 +5,7 @@ import { InfrastructureModule } from "@src/infrastructure/infrastructure.module"
 import { TokenModule } from "../token/token.module";
 import { CreateSessionLoginMailService } from "./commands/create-session-login-mail/create-session-login-mail.service";
 import { SessionRepository } from "./database/session.repository";
-import { SessionLoginSchema } from "./domain/model/session-login.model";
+import { SessionLoginSchema } from "./domain/schema/session-login.schema";
 
 const grpcControllers = [""];
 
