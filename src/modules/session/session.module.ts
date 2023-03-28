@@ -4,14 +4,19 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { InfrastructureModule } from "@src/infrastructure/infrastructure.module";
 import { TokenModule } from "../token/token.module";
 import { CreateSessionLoginMailService } from "./commands/create-session-login-mail/create-session-login-mail.service";
+import { ValidateSessionLoginGrpcController } from "./commands/validate-session-login/validate-session-login.grpc.controller";
+import { ValidateSessionLoginService } from "./commands/validate-session-login/validate-session-login.service";
 import { SessionRepository } from "./database/session.repository";
 import { SessionLoginSchema } from "./domain/schema/session-login.schema";
 
-const grpcControllers = [""];
+const grpcControllers = [ValidateSessionLoginGrpcController];
 
 const repositories = [SessionRepository];
 
-const commandHandlers = [CreateSessionLoginMailService];
+const commandHandlers = [
+  CreateSessionLoginMailService,
+  ValidateSessionLoginService,
+];
 
 @Module({
   imports: [
@@ -21,9 +26,7 @@ const commandHandlers = [CreateSessionLoginMailService];
     InfrastructureModule,
     TokenModule,
   ],
-  controllers: [
-    // ...grpcControllers
-  ],
+  controllers: [...grpcControllers],
   providers: [...commandHandlers, ...repositories],
   exports: [...commandHandlers],
 })

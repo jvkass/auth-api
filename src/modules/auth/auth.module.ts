@@ -4,6 +4,7 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
 import { InfrastructureModule } from "@src/infrastructure/infrastructure.module";
 import { USER_SERVICE_NAME } from "@libs/protos/proto/user.pb";
 import { MongooseModule } from "@nestjs/mongoose";
+import process from "process";
 import { AuthLoginMailHttpController } from "./commands/auth-login/auth-login-mail.http.controller";
 import { AuthLoginMailService } from "./commands/auth-login/auth-login-mail.service";
 import { SessionModule } from "../session/session.module";
@@ -37,7 +38,17 @@ const commandHandlers = [AuthLoginMailService];
         }),
       },
     ]),
-    MongooseModule.forRoot("mongodb://docker:mongopw@localhost:49154"),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const URI = configService.get<string>("MONGODB_HOST");
+
+        return {
+          uri: URI,
+        };
+      },
+      inject: [ConfigService],
+    }),
     ConfigModule,
     InfrastructureModule,
     SessionModule,
