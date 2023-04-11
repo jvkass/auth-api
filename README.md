@@ -1,5 +1,16 @@
 # API de autenticação
 
+## Executar o projeto
+
+
+#### Deve instalar as dependencias com o comando a baixo:
+
+yarn
+
+#### com a instalação das dependencias pode se executar o projeto com o comando: 
+
+yarn start:dev
+
 ### Domain Errors
 
   APIE004 = "Access Token invalido"
